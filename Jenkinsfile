@@ -2,7 +2,7 @@ pipeline {
     agent any
 
     environment {
-        DOCKER_REGISTRY = "docker.io"
+        DOCKER_USER     = "poojapooja123"
         DOCKER_REPO     = "${DOCKER_USER}/kanban-dashboard"
         GIT_SHORT_SHA   = sh(script: "git rev-parse --short HEAD", returnStdout: true).trim()
         IMAGE_TAG       = "${BUILD_NUMBER}-${GIT_SHORT_SHA}"
