@@ -2,17 +2,17 @@ pipeline {
     agent any
 
     environment {
-        DOCKER_USER     = "poojapooja123"
-        DOCKER_REPO     = "${DOCKER_USER}/kanban-dashboard"
+        DOCKER_CREDS    = credentials('dockerhub-creds')
+        DOCKER_REPO     = "poojapooja123/kanban-dashboard"
         GIT_SHORT_SHA   = sh(script: "git rev-parse --short HEAD", returnStdout: true).trim()
         IMAGE_TAG       = "${BUILD_NUMBER}-${GIT_SHORT_SHA}"
-        FULL_IMAGE      = "${DOCKER_REPO}:${IMAGE_TAG}"
+        FULL_IMAGE      = "poojapooja123/kanban-dashboard:${BUILD_NUMBER}-${GIT_SHORT_SHA}"
         APP_PORT        = "3000"
         CONTAINER_BASE  = "kanban-dashboard"
         MEMORY_LIMIT    = "256m"
         CPU_LIMIT       = "0.5"
     }
-
+    
     options {
         buildDiscarder(logRotator(numToKeepStr: '10'))
         timeout(time: 15, unit: 'MINUTES')
